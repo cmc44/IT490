@@ -1,7 +1,10 @@
 <?php
 
-error_reporting(-1);
-ini_set('display_errors', false);
+ini_set("display_errors", 1);
+ini_set("log_errors",1);
+ini_set("error_log", "/tmp/error.log");
+error_reporting( E_ALL & ~E_DEPRECATED & ~E_STRICT);
+error_log("Hello, errors!");
 
 require_once('path.inc');
 require_once('get_host_info.inc');
@@ -56,8 +59,8 @@ function registration( $fname, $lname, $user, $pass, $email, $zipcode )
     echo "\n\n";
     echo $argv[0]." END".PHP_EOL;
 }
-/*
-function apicall ( $date, $zipcode )
+
+function weather_store ( $zipcode )
 {
     $client = new rabbitMQClient ( "testRabbitMQ.ini", "testServer" );
     if ( isset($argv[1] ) )
@@ -65,8 +68,7 @@ function apicall ( $date, $zipcode )
       $msg = $argv[1];
     }
     $request = array();
-    $request['type'] = "apicall";
-    $request['today'] = $date;
+    $request['type'] = "weatherapi";
     $request['zipcode'] = $zipcode;
     $response = $client->send_request( $request );
     return $response;
@@ -74,7 +76,30 @@ function apicall ( $date, $zipcode )
     echo $argv[0]." END".PHP_EOL;
 }
 
-function getData ( $date, $user, $zipcode )
+function spotify_store ( $above70, $above40, $below40, $playlength )
+{
+    $client = new rabbitMQClient ( "testRabbitMQ.ini", "testServer" );
+    if ( isset($argv[1] ) )
+    {
+      $msg = $argv[1];
+    }
+    else
+    {
+      $msg = "test message";
+    }
+    $request = array();
+    $request['type'] = "spotify_store";
+    $request['above70'] = $above70;
+    $request['above40'] = $above40;
+    $request['below40'] = $below40;
+    $request['playlength'] = $playlength;
+    $response1 = $client->send_request( $request );
+    return $response1;
+    echo "\n\n";
+    echo $argv[0]." END".PHP_EOL;
+}
+
+function get_data ( $user )
 {
     $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
     if (isset($argv[1]))
@@ -82,14 +107,12 @@ function getData ( $date, $user, $zipcode )
       $msg = $argv[1];
     }
     $request = array();
-    $request['type'] = "getData";
-    $request['today'] = $date;
+    $request['type'] = "getdata";
     $request['user'] = $user;
-    $request['zipcode'] = $zipcode;
-    $response1 = $client->send_request($request);
-    return $response1;
+    $response = $client->send_request($request);
+    return $response;
     echo "\n\n";
     echo $argv[0]." END".PHP_EOL;
 }
- */
+
 ?>

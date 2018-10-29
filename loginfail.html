@@ -1,12 +1,51 @@
 <! DOCTYPE html >
 
+<style>
+
+body {font-family: Arial, Helvetica, sans-serif;}
+ {box-sizing: border-box}
+
+button
+{
+   background-color: #00ff08;
+   color: white;
+   padding: 15px 15px;
+   margin: 8px 0;
+   border: none;
+   cursor: pointer;
+   width: 1%;
+   opacity: 0.9;
+   border-radius: 10px;
+}
+
+hr
+{
+        border: 1px solid #f1f1f1;
+        margin-bottom: auto;
+}
+
+.loginreturn
+{
+        float: left;
+        width: 15%;
+}
+
+.clearfix::after {
+   content: "";
+   clear: both;
+   display: table;
+}
+
+</style>
 <html>
+	<body>
 	<h1> Login Failed </h1>
-	<body> Email or password not match database, please return to the login page.
-		<center>
-			<a href="login.html">
-                        <button class="button" type="submit" value="Return to Login">Return to Login
-                        </button></a>
-		</center>
+	<hr>
+	<p> Email or password does not match database, please return to the login page.</p>
+	<div class="clearfix">
+	<a href="login.html">
+        <button type="submit" class="loginreturn">Return to Login</button>
+	</a>
+        </div>
 	</body>
 </html>

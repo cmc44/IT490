@@ -1,13 +1,82 @@
-<! DOCTYPE html >
+<!DOCTYPE html>
 
-<html>
-        <h1> Search Preferences </h1>
-        <body> Search here           
-                <center>
-                        <a href="login.html">
-                        <button class="button" type="submit" value="Return to Login">Return to Login (logout)
-                        </button></a>
-                </center>
+<style>
+
+body {font-family: Arial, Helvetica, sans-serif;}
+ {box-sizing: border-box}
+
+input[type=text], input[type=pass]
+{
+        width: 30%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        display: center;
+        border: none;
+        background: #f1f1f1;
+        border-radius: 10px;
+}
+
+input[type=text]:focus, input[type=pass]:focus
+{
+        background-color: #C8C8C8;
+        padding: 15px;
+        display: center;
+        border: 2px solid #4D4D4D;
+        border-radius: 10px;
+}
+
+button
+{
+   background-color: #00ff08;
+   color: white;
+   padding: 15px 15px;
+   margin: 8px 0;
+   border: none;
+   cursor: pointer;
+   width: 1%;
+   opacity: 0.9;
+   border-radius: 10px;
+}
+
+hr
+{
+        border: 1px solid #f1f1f1;
+        margin-bottom: auto;
+}
+
+.searchbutton
+{
+        float: left;
+        width: 15%;
+}
+
+</style>
+	<body>           
+        	<fieldset>
+        	<div>
+        	<form action= "search.php" method="POST">
+        	<h1>WeatherSpot</h1>
+        	<p>Generate Your Playlist Here!</p>
+        	
+		<hr>
+
+	   	<input type="text" placeholder="Enter an Artist if Temperature is Above 70*F" name="above70" required><br>
+
+   		<input type="text" placeholder="Enter an Artist if Temperature is Between 40-70*F" name="above40" required><br>
+
+   		<input type="text" placeholder="Enter an Artist if Temperature is Below 40*F" name="below40" required><br>
+
+   		<input type="text" placeholder="Enter a Number for # of Songs for Playlist" name="playlength" required><br>
+
+        	<div class="clearfix">
+		<button type="submit" class="searchbutton">Create Playlist</button>
+        	</div>
+		<br><br><br><p><a href= "login.html">Return to Login (logout)</a></p>
+        	</form>	
+        	</div>
+    </fieldset>
+    </body>
+
         </body>
 </html>
 

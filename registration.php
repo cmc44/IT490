@@ -20,8 +20,10 @@ if ( $response != true )
 {
 	header( "Refresh:0; url=registerfail.html");
 }
+
 else
 {
-    	header( "Refresh:0; url=login.html");
+	echo "Thanks for registering, " . $fname . "!";
+    	header( "Refresh:2; url=login.html");
 }
 ?>

@@ -5,11 +5,14 @@ require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
 //$db = parse_ini_file("dbcredentials.ini");
+  
+ini_set("display_errors", 1);
+ini_set("log_errors",1);
+ini_set("error_log", "/tmp/error.log");
+error_reporting( E_ALL & ~E_DEPRECATED & ~E_STRICT);
+error_log("Hello, errors!");
 
-error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);  
-ini_set( 'display_errors' , 1 );
-
-function authenticate ( $u, $v )
+function authenticate ( $u, $p )
 {
 	( $db = mysqli_connect ( 'localhost', 'christian', 'password', 'IT490' ) );
 if ( mysqli_connect_errno() )
@@ -19,7 +22,7 @@ if ( mysqli_connect_errno() )
 }
 echo "Successfully connected to MySQL<br><br>";
 mysqli_select_db( $db, 'IT490' );
-$s = "select * from account where user = '$u' and pass = '$v'";
+$s = "SELECT * FROM account WHERE user = '$u' AND pass = '$p'";
     ( $t = mysqli_query ( $db,$s ) ) or die( mysqli_error( $db ) );
     $num = mysqli_num_rows($t);
     if ($num == 0)
@@ -60,30 +63,50 @@ print "Thank you, you are registered.";
  	return true;
     }	
 }
-function getdata ($user){
-	global $db;
-	
-	
-	$temp =$_GET [$user];
-	$temp = mysqli_real_escape_string($db, $temp);
-	return $temp;
+
+function spotify_store ( $above70, $above40, $below40, $playlength )
+{
+	return true;
+}
+
+function get_data ( $user )
+{
+	 ( $db = mysqli_connect ( 'localhost', 'christian', 'password', 'IT490' ) );
+ 	 if ( mysqli_connect_errno () )
+ 	 {
+ 	  echo "Failed to connect to MYSQL<br><br> ". mysqli_connect_error();
+ 	  exit();
+ 	 }
+ 	 echo "Successfully connected to MySQL";
+	 mysqli_select_db ( $db, 'IT490' );
+
+		$zipcode = "SELECT zipcode FROM account WHERE user = '$user'";
+
+		return $zipcode;
 }
 	
-function requestProcessor($request)
+function requestProcessor( $request )
 {
 	echo "received request".PHP_EOL;
-	var_dump($request);
+	var_dump( $request );
 	if( ! isset( $request[ 'type' ] ) )
 	{
         	return "ERROR: unsupported msg type";
 	}
-	switch ($request['type'])
+	switch ( $request['type'] )
 	{
 	case "login":
-		return authenticate($request['user'],$request['pass']);
+		return authenticate ( $request['user'], $request['pass'] );
 	case "registration":
-        	return registration($request['fname'],$request['lname'],$request['user'],$request['pass'],$request['email'],$request['zipcode']);
-      }
+        	return registration ( $request['fname'], $request['lname'], $request['user'], $request['pass'], $request['email'], $request['zipcode'] );
+	case "weatherapi":
+		return weather_store ( $request['temp'] );
+	case "spotify_store":
+		return spotify_store ( $request['above70'], $request['above40'], $request['below40'], $request['playlength'] );
+	case "getdata":
+		return get_data ( $request['user'] );
+	}
+
       return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
     $server = new rabbitMQServer("testRabbitMQ.ini","testServer");

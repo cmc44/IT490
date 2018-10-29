@@ -2,8 +2,7 @@
 
 <style>
 
-body {font-family: Arial, Helvetica, sans-serif;}
- {box-sizing: border-box}
+body {font-family: Arial, Helvetica, sans-serif;} {box-sizing: border-box}
 
 input[type=text], input[type=pass]
 {
@@ -44,25 +43,34 @@ button
    border-radius: 10px;
 }
 
+hr
+{
+        border: 1px solid #f1f1f1;
+        margin-bottom: auto;
+}
+
 .loginbutton 
 {
 	float: left;
  	width: 15%;
 }
 
-.container {
-   padding: 16px;
-   float: center;
+@media screen and (max-width: 300px)
+{       .loginbutton
+        {
+                width: 100%;
+        }
 }
 
 </style>
 
 <body>
     <fieldset>
-	    <div>
+        <div>
         <form action= "login.php" method="POST">
-	<h1>Welcome!</h1>
-        <p>Log in</p>
+	<h1>Welcome to WeatherSpot!</h1>
+        <p>Log In</p>
+	<hr>
         <div id="user">
         <input type=text autocomplete=off placeholder = "Username" name="user" required><br>
         </div>
