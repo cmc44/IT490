@@ -1,5 +1,4 @@
 <?php
-
 	session_destroy();
 	setcookie ( session_name(), '', time() - 7000, '/');
 	function redirect ( $msg, $url )

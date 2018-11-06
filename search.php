@@ -8,7 +8,6 @@ ini_set("display_errors", 1);
 ini_set("log_errors",1);
 ini_set("error_log", "/tmp/error.log");
 error_reporting( E_ALL & ~E_DEPRECATED & ~E_STRICT);
-error_log("Hello, errors!");
 
 if( ! isset( $_SESSION["user"] ) )
 {
@@ -21,7 +20,7 @@ if( ! isset( $_SESSION["user"] ) )
 
 <html>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
 
 <style>
 
@@ -112,7 +111,7 @@ function weatherapi(str_num)
         },
 		success: data => 
 		{	
-                        alert(data["main"]["temp"]);
+                        zipis=(data["main"]["temp"]);
                 }
         });
 }

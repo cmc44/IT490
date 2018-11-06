@@ -8,13 +8,12 @@ require_once('rabbitMQLib.inc');
   
 ini_set("display_errors", 1);
 ini_set("log_errors",1);
-ini_set("error_log", "/tmp/error.log");
+ini_set("error_log", "/tmp/events.log");
 error_reporting( E_ALL & ~E_DEPRECATED & ~E_STRICT);
-error_log("Hello, errors!");
 
 function authenticate ( $u, $p )
 {
-	( $db = mysqli_connect ( 'localhost', 'christian', 'password', 'IT490' ) );
+	( $db = mysqli_connect ( '192.168.1.81', 'connect', '12345', 'IT490' ) );
 if ( mysqli_connect_errno() )
 {
 	echo"Failed to connect to MYSQL<br><br> ". mysqli_connect_error();
@@ -27,18 +26,20 @@ $s = "SELECT * FROM account WHERE user = '$u' AND pass = '$p'";
     $num = mysqli_num_rows($t);
     if ($num == 0)
     {
-      return false;
+	file_put_contents('/tmp/events.log', date('d.M.Y')." Login failed for user: ".$u."--- ", FILE_APPEND);
+	return false;
     }
     
     else
     {
-      return true;
+	file_put_contents('/tmp/events.log', date('d.M.Y')." Login success for user: ".$u."--- ", FILE_APPEND);
+	return true;
     }
 }
 
 function registration ( $fname, $lname, $user, $pass, $email, $zipcode )
 {
-	( $db = mysqli_connect ( 'localhost', 'christian', 'password', 'IT490' ) );
+	( $db = mysqli_connect ( '192.168.1.81', 'connect', '12345', 'IT490' ) );
     if ( mysqli_connect_errno () )
     {
       echo "Failed to connect to MYSQL<br><br> ". mysqli_connect_error();
@@ -53,13 +54,15 @@ function registration ( $fname, $lname, $user, $pass, $email, $zipcode )
 
     if ( $email == $e)
     {
+	file_put_contents('/tmp/events.log', date('d.M.Y')." Registration failedfor user: ".$user."--- ", FILE_APPEND);
         return false; 
     }
   
     else
     {
 	mysqli_query($db, "INSERT INTO account (fname, lname, user, pass, email, zipcode) VALUES ('$fname', '$lname', '$user', '$pass', '$email', '$zipcode')");
-print "Thank you, you are registered.";
+	print "Thank you, you are registered.";
+	file_put_contents('/tmp/events.log', date('d.M.Y')." Registration success for user: ".$user."--- ", FILE_APPEND);
  	return true;
     }	
 }
@@ -71,7 +74,7 @@ function spotify_store ( $above70, $above40, $below40, $playlength )
 
 function get_data ( $user )
 {
-	 ( $db = mysqli_connect ( 'localhost', 'christian', 'password', 'IT490' ) );
+	 ( $db = mysqli_connect ( '192.168.1.10', 'christian', 'password', 'IT490' ) );
  	 if ( mysqli_connect_errno () )
  	 {
  	  echo "Failed to connect to MYSQL<br><br> ". mysqli_connect_error();
