@@ -1,0 +1,11 @@
+[Unit]
+Description= Starts production version listener
+
+[Service]
+PermissionStartOnly=true
+Type=idle
+ExecStart= /usr/bin/php /home/christian/vcs/versioncontrol.php
+Restart=on-failure
+
+[Install]
+WantedBy= multi-user.target

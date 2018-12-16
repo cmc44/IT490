@@ -1,0 +1,11 @@
+[Unit]
+Description= Starts Function listener
+
+[Service]
+PermissionStartOnly=true
+Type=idle
+ExecStart= /usr/bin/php var/www/html/weatherspot.com/public_html/functions.php
+Restart=on-failure
+
+[Install]
+WantedBy= multi-user.target

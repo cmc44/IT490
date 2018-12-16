@@ -1,0 +1,11 @@
+[Unit]
+Description= Starts QA version listener
+
+[Service]
+PermissionStartOnly=true
+Type=idle
+ExecStart= /usr/bin/php /home/christian/vcs/qaversions.php
+Restart=on-failure
+
+[Install]
+WantedBy= multi-user.target

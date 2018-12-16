@@ -1,0 +1,11 @@
+[Unit]
+Description= Starts Dev version listener
+
+[Service]
+PermissionStartOnly=true
+Type=idle
+ExecStart= /usr/bin/php /home/christian/vcs/versions.php
+Restart=on-failure
+
+[Install]
+WantedBy= multi-user.target
