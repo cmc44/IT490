@@ -3,7 +3,7 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 function package($in){
-exec("sudo zip -r /var/www/versions/version$in.zip /var/www/html/ ");
+exec("sudo zip -r /var/www/versions/version$in.zip /var/www/html/weatherspot.com/public_html ");
 exec('sshpass -p "test" rsync -zaPvh /var/www/versions christian@192.168.1.10:~/ --delete');
 echo "Sucessfully packaged and shipped to QA";  
 }

@@ -13,12 +13,18 @@ error_reporting( E_ALL & ~E_DEPRECATED & ~E_STRICT);
 
 function authenticate ( $u, $p )
 {
-	( $db = mysqli_connect ( '192.168.1.81', 'connect', '12345', 'IT490' ) );
-if ( mysqli_connect_errno() )
-{
-	echo"Failed to connect to MYSQL<br><br> ". mysqli_connect_error();
-      	exit();
-}
+	( $db = mysqli_connect ( '192.168.1.81', 'connect', '12345', 'IT490'     ));
+
+     if ( mysqli_connect_errno () )
+     {
+	     ( $db = mysqli_connect ( '192.168.1.10', 'connect', '12345', 'IT490' ) );
+	     if (mysqli_connect_errno () )
+	     {
+       echo "Failed to connect to MYSQL<br><br> ". mysqli_connect_error();
+       exit();
+	     }
+     }
+
 echo "Successfully connected to MySQL<br><br>";
 mysqli_select_db( $db, 'IT490' );
 $s = "SELECT * FROM account WHERE user = '$u' AND pass = '$p'";
@@ -39,12 +45,16 @@ $s = "SELECT * FROM account WHERE user = '$u' AND pass = '$p'";
 
 function registration ( $fname, $lname, $user, $pass, $email, $zipcode )
 {
-	( $db = mysqli_connect ( '192.168.1.81', 'connect', '12345', 'IT490' ) );
-    if ( mysqli_connect_errno () )
-    {
-      echo "Failed to connect to MYSQL<br><br> ". mysqli_connect_error();
-      exit();
-    }
+	( $db = mysqli_connect ( '192.168.1.81', 'connect', '12345', 'IT490'     ));
+     if ( mysqli_connect_errno () )
+     {
+             ( $db = mysqli_connect ( '192.168.1.10', 'connect', '12345', 'IT490' ) );
+             if (mysqli_connect_errno () )
+             {
+       echo "Failed to connect to MYSQL<br><br> ". mysqli_connect_error();
+       exit();
+             }
+     }
     echo "Successfully connected to MySQL";
     mysqli_select_db ( $db, 'IT490' );
     $s = "SELECT * FROM account WHERE email = '$email'";

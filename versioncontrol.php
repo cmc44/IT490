@@ -7,7 +7,7 @@ $verno=trim(fgets(STDIN));
 echo "What ip address should this version be installed? "; 
 $ip=trim(fgets(STDIN)); 
 function VersionControl($verno, $ip){
-    $client = new rabbitMQClient("testRabbitMQ.ini","orcServer");
+    $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
     if (isset($argv[1]))
     {
       $msg = $argv[1];

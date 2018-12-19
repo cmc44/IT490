@@ -5,7 +5,7 @@ require_once('rabbitMQLib.inc');
 echo "what version is this?"; 
 $verno=trim(fgets(STDIN));
 function ziptoQA($verno){
-    $client = new rabbitMQClient("testRabbitMQ.ini","orcServer");
+    $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
     if (isset($argv[1]))
     {
       $msg = $argv[1];
